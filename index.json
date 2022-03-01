@@ -1,0 +1,71 @@
+[
+  {
+    "content": "Docker Content Sekedar share tentang docker\n",
+    "description": "",
+    "tags": null,
+    "title": "Docker",
+    "uri": "/docker/"
+  },
+  {
+    "content": "Study Case : Disini kita akan mengkoneksikan docker container dengan mysql yang terinstall di host mesin (luar container).\nSistem  Mesin : ubuntu 20.04 LTS Mysql : mysql Ver 14.14 Distrib 5.7.37, Docker : Docker version 20.10.12, build e91ed57 Docker Compose  Perhatian :  Pastikan mysql open akses / specific ip address, agar bisa diakses secara remote dari ip address tertentu Pastikan jalankan docker dengan extra network pastikan port 3306 allow, ufw allow 3306  Langkah-langkah 1. Dari sisi Konfigurasi MySql   pastikan bind-address terbuka ubah ke 0.0.0.0, nano /etc/mysql/mysql.conf.d/mysqld.cnf\n[mysqld]pid-file = /var/run/mysqld/mysqld.pidsocket = /var/run/mysqld/mysqld.sockdatadir = /var/lib/mysqllog-error = /var/log/mysql/error.logbind-address = 0.0.0.0 #\u003c-- bagian inisymbolic-links=0note: jika ingin ubah port, tambahkan variabel port di file /etc/mysql/my.cnf\n[mysqld]port=3305  Set spesifik ip address untuk user mysql tertentu\n  mengecek user\n mysql\u003e select user,host from user;   +---------------+-----------+  | user | host |  +---------------+-----------+  | simade | % |  | mysql.session | localhost |  | mysql.sys | localhost |  | root | localhost |  | simade | localhost |  +---------------+-----------+  5 rows in set (0.00 sec)   Ubah identity user atau rename kemudian sesuaikan ip addressnya. Tanda % dipake agar bisa diakses dari semua host. Sedang disini kita akan gunakan spesifik ip address nya docker container.\nUntuk mendapatkan Ip adress container jalankan perintah berikut :\ndocker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' [container_id/name]172.31.0.2  Setelah mendapatkan ip address-nya, tempel ip tersebut ke user mysql dengan perintah berikut dst :\n#Cara 1 mysql\u003e ALTER USER 'tarno'@'%' IDENTIFIED WITH mysql_native_password BY 'password';  #Cara 2 mysql\u003e RENAME USER 'tarno'@'127.0.0.1' TO 'tarno'@'localhost';  #Grant all mysql\u003e GRANT ALL ON *.* TO 'tarno'@'localhost';  #Flush mysql\u003e FlUSH PRIVILEGE;     Forward port mysql\n cek status $ ufw status Status: active  To Action From -- ------ ---- 22/tcp ALLOW Anywhere 80 ALLOW Anywhere 443 ALLOW Anywhere 63791 ALLOW Anywhere 22/tcp (v6) ALLOW Anywhere (v6) 80 (v6) ALLOW Anywhere (v6) 443 (v6) ALLOW Anywhere (v6) 63791 (v6) ALLOW Anywhere (v6)  $ ufw allow 3306 $ ufw status [number] $ ufw del [number]     Sesuaikan policy requirement (lihat bagian resolusi)\n  2. Dari sisi konfigurasi Docker  pastikan docker-compose.yaml file sbb : version: \"3.9\"services:simade: image: ${REPOSITORY} container_name: simade ports: - \"8080:80\" restart: on-failure volumes: - /home/serverdpmd/project/upload/:/var/www/app/application/upload/ - /home/serverdpmd/project/.env:/var/www/app/.env extra_hosts: - \"host.docker.internal:host-gateway\" #\u003c--tambahkan bagian ini # atau gunakan perintah ini jika menjalankan manual '--add-host=host.docker.internal:host-gateway'#tambahan untuk mendapatkan ip statiknetworks: network: ipv4_address: 172.31.0.2networks:default: name: simade_netnetwork: #will be prefixed with 'parent_dir_name_' so for me, it will be 'mysql_network' ipam: config: - subnet: 172.31.0.0/16  Secure Mysql  Ubah port  Jalankan mysql_secure_installation, pastikan user root tidak dapat diakses sembarangan  Problem Solving :     Error : Your password does not satisfy the current policy requirements\n  Solusi : sesuaikan kebutuhan validate passwordnya seperti ini.\nmysql\u003e SET GLOBAL validate_password_check_user_name=ON; Query OK, 0 rows affected (0.00 sec)  mysql\u003e SET GLOBAL validate_password_length = 4; Query OK, 0 rows affected (0.00 sec)  mysql\u003e SHOW VARIABLES LIKE 'validate_password%'; +--------------------------------------+-------+ | Variable_name | Value | +--------------------------------------+-------+ | validate_password_check_user_name | ON | | validate_password_dictionary_file | | | validate_password_length | 4 | | validate_password_mixed_case_count | 1 | | validate_password_number_count | 0 | | validate_password_policy | LOW | | validate_password_special_char_count | 1 | +--------------------------------------+-------+     ",
+    "description": "",
+    "tags": [
+      "docker",
+      "connection"
+    ],
+    "title": "Koneksi container dengan host",
+    "uri": "/docker/koneksi_container_dengan_host/"
+  },
+  {
+    "content": "",
+    "description": "",
+    "tags": null,
+    "title": "clean",
+    "uri": "/tags/clean/"
+  },
+  {
+    "content": "",
+    "description": "",
+    "tags": null,
+    "title": "docker",
+    "uri": "/tags/docker/"
+  },
+  {
+    "content": "Docker – How to cleanup (unused) resources Once in a while, you may need to cleanup resources (containers, volumes, images, networks) …\ndelete volumes $ docker volume rm $(docker volume ls -qf dangling=true) $ docker volume ls -qf dangling=true | xargs -r docker volume rm  # delete networks $ docker network ls $ docker network ls | grep \"bridge\" $ docker network rm $(docker network ls | grep \"bridge\" | awk '/ / { print $1 }') remove docker images $ docker images $ docker rmi $(docker images --filter \"dangling=true\" -q --no-trunc) $ docker images | grep \"none\" $ docker rmi $(docker images | grep \"none\" | awk '/ / { print $3 }') remove docker containers $ docker ps $ docker ps -a $ docker rm $(docker ps -qa --no-trunc --filter \"status=exited\") Resize disk space for docker vm $ docker-machine create --driver virtualbox --virtualbox-disk-size \"40000\" default Referensi:\n Clean Up Volume Remove unused  ",
+    "description": "",
+    "tags": [
+      "docker",
+      "clean"
+    ],
+    "title": "Docker Clean Command",
+    "uri": "/docker/docker-clean-command/"
+  },
+  {
+    "content": "",
+    "description": "",
+    "tags": null,
+    "title": "Tags",
+    "uri": "/tags/"
+  },
+  {
+    "content": "",
+    "description": "",
+    "tags": null,
+    "title": "connection",
+    "uri": "/tags/connection/"
+  },
+  {
+    "content": "",
+    "description": "",
+    "tags": null,
+    "title": "About",
+    "uri": "/about/"
+  },
+  {
+    "content": "",
+    "description": "",
+    "tags": null,
+    "title": "Categories",
+    "uri": "/categories/"
+  }
+]
