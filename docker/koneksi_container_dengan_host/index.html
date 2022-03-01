@@ -7,25 +7,25 @@
     <meta name="generator" content="Relearn 3.0.4&#43;tip">
     <meta name="description" content="">
     <title>Koneksi container dengan host (localhost) - Journal</title>
-    <link href="/css/nucleus.css?1646135078" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1646135078" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1646135078" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1646135078" rel="stylesheet">
-    <link href="/css/auto-complete.css?1646135078" rel="stylesheet">
-    <link href="/css/theme.css?1646135078" rel="stylesheet">
-    <link id="variant-style" href="/css/theme-light.css?1646135078" rel="stylesheet">
-    <link href="/css/variant.css?1646135078" rel="stylesheet">
-    <link href="/css/theme-relearn-light.css?1646135078" rel="stylesheet" media="print">
-    <link href="/css/print.css?1646135078" rel="stylesheet" media="print">
-    <link href="/css/foo.css?1646135078" rel="stylesheet">
-    <link href="/css/bar.css?1646135078" rel="stylesheet">
+    <link href="/css/nucleus.css?1646144222" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1646144222" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1646144222" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1646144222" rel="stylesheet">
+    <link href="/css/auto-complete.css?1646144222" rel="stylesheet">
+    <link href="/css/theme.css?1646144222" rel="stylesheet">
+    <link id="variant-style" href="/css/theme-light.css?1646144222" rel="stylesheet">
+    <link href="/css/variant.css?1646144222" rel="stylesheet">
+    <link href="/css/theme-relearn-light.css?1646144222" rel="stylesheet" media="print">
+    <link href="/css/print.css?1646144222" rel="stylesheet" media="print">
+    <link href="/css/foo.css?1646144222" rel="stylesheet">
+    <link href="/css/bar.css?1646144222" rel="stylesheet">
     <style>
     </style>
-    <script src="/js/variant.js?1646135078"></script>
+    <script src="/js/variant.js?1646144222"></script>
     <script>
       variants.init( [ "light" ] );
     </script>
-    <script src="/js/jquery.min.js?1646135078"></script>
+    <script src="/js/jquery.min.js?1646144222"></script>
   </head>
   <body class="default-animation" data-url="/docker/koneksi_container_dengan_host/">
     <div id="body" class="default-animation">
@@ -46,16 +46,16 @@
               <div class="wrapper">
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#kasus-">Kasus :</a></li>
-    <li><a href="#sistem">Sistem</a></li>
-    <li><a href="#perhatian-">Perhatian :</a></li>
-    <li><a href="#langkah-langkah">Langkah-langkah</a>
+    <li><a href="#case">Case</a></li>
+    <li><a href="#prequist">Prequist</a></li>
+    <li><a href="#attention">Attention</a></li>
+    <li><a href="#step">Step</a>
       <ul>
         <li><a href="#1-konfigurasi-mysql">1. Konfigurasi MySql</a></li>
         <li><a href="#2-konfigurasi-docker-compose">2. konfigurasi Docker Compose</a></li>
       </ul>
     </li>
-    <li><a href="#secure-mysql">Secure Mysql</a></li>
+    <li><a href="#securing-mysql">Securing MySql</a></li>
     <li><a href="#troubleshoot-">Troubleshoot :</a></li>
   </ul>
 </nav>
@@ -73,22 +73,22 @@
           </div>
           <h1>Koneksi container dengan host (localhost)</h1>
 
-<h2 id="kasus-">Kasus :</h2>
+<h2 id="case">Case</h2>
 <p>Disini kita akan mengkoneksikan docker container dengan mysql yang terinstall di host mesin (luar container).</p>
-<h2 id="sistem">Sistem</h2>
+<h2 id="prequist">Prequist</h2>
 <ul>
 <li>Mesin   : ubuntu 20.04 LTS</li>
 <li>Mysql   : mysql  Ver 14.14 Distrib 5.7.37,</li>
 <li>Docker  : Docker version 20.10.12, build e91ed57</li>
 <li>Docker Compose</li>
 </ul>
-<h2 id="perhatian-">Perhatian :</h2>
+<h2 id="attention">Attention</h2>
 <ol>
 <li>Pastikan mysql open akses / specific ip address, agar bisa diakses secara remote dari ip address tertentu</li>
 <li>Pastikan jalankan docker dengan extra network</li>
 <li>pastikan port 3306 allow, ufw allow 3306</li>
 </ol>
-<h2 id="langkah-langkah">Langkah-langkah</h2>
+<h2 id="step">Step</h2>
 <h3 id="1-konfigurasi-mysql">1. Konfigurasi MySql</h3>
 <ul>
 <li>
@@ -183,9 +183,9 @@
 </span></span><span style="display:flex;"><span><span style="color:#f92672">services</span>:
 </span></span><span style="display:flex;"><span><span style="color:#f92672">simade</span>:
 </span></span><span style="display:flex;"><span>    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">${REPOSITORY}</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container_name</span>: <span style="color:#ae81ff">simade</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container_name</span>: <span style="color:#ae81ff">my_name</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#f92672">ports</span>:
-</span></span><span style="display:flex;"><span>    - <span style="color:#e6db74">&#34;8080:80&#34;</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#e6db74">&#34;80:80&#34;</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#f92672">restart</span>: <span style="color:#66d9ef">on</span>-<span style="color:#ae81ff">failure</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#f92672">volumes</span>:
 </span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">/home/serverdpmd/project/upload/:/var/www/app/application/upload/</span>
@@ -197,19 +197,19 @@
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># konfigurasi network &amp; global network (paling bawah), untuk mendapatkan ip statik</span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">networks</span>:
 </span></span><span style="display:flex;"><span>  <span style="color:#f92672">network</span>:
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">ipv4_address</span>: <span style="color:#ae81ff">172.31.0.2</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">ipv4_address</span>: <span style="color:#ae81ff">172.</span><span style="color:#ae81ff">x.x.x</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">networks</span>:
 </span></span><span style="display:flex;"><span><span style="color:#f92672">default</span>:
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">simade_net</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">my_network</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">#will be prefixed with &#39;parent_dir_name_&#39; so for me, it will be &#39;mysql_network&#39;</span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">network</span>: 
 </span></span><span style="display:flex;"><span>    <span style="color:#f92672">ipam</span>:
 </span></span><span style="display:flex;"><span>        <span style="color:#f92672">config</span>:
-</span></span><span style="display:flex;"><span>            - <span style="color:#f92672">subnet</span>: <span style="color:#ae81ff">172.31.0.0</span><span style="color:#ae81ff">/16</span>
+</span></span><span style="display:flex;"><span>            - <span style="color:#f92672">subnet</span>: <span style="color:#ae81ff">172.</span><span style="color:#ae81ff">x.x.x/16</span>
 </span></span></code></pre></div></li>
 </ul>
-<h2 id="secure-mysql">Secure Mysql</h2>
+<h2 id="securing-mysql">Securing MySql</h2>
 <ol>
 <li>Ubah mysql port</li>
 <li>Jalankan <code>mysql_secure_installation</code> dan pastikan user root tidak dapat diakses sembarangan</li>
@@ -322,9 +322,9 @@
           <input data-search-input id="search-by" type="search" placeholder="Search...">
           <span data-search-clear=""><i class="fas fa-times"></i></span>
         </div>
-        <script src="/js/lunr.min.js?1646135078"></script>
-        <script src="/js/auto-complete.js?1646135078"></script>
-        <script src="/js/search.js?1646135078"></script>
+        <script src="/js/lunr.min.js?1646144222"></script>
+        <script src="/js/auto-complete.js?1646144222"></script>
+        <script src="/js/search.js?1646144222"></script>
       </div>
       <div id="content-wrapper" class="highlightable">
         <ul class="topics">
@@ -374,11 +374,11 @@
         </div>
       </div>
     </aside>
-    <script src="/js/clipboard.min.js?1646135078"></script>
-    <script src="/js/perfect-scrollbar.min.js?1646135078"></script>
-    <script src="/js/jquery.svg.pan.zoom.js?1646135078"></script>
-    <script src="/js/featherlight.min.js?1646135078"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1646135078"></script>
+    <script src="/js/clipboard.min.js?1646144222"></script>
+    <script src="/js/perfect-scrollbar.min.js?1646144222"></script>
+    <script src="/js/jquery.svg.pan.zoom.js?1646144222"></script>
+    <script src="/js/featherlight.min.js?1646144222"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1646144222"></script>
     <script src="https://unpkg.com/mermaid@8.8.0/dist/mermaid.min.js"></script>
     <script>
       if (typeof mermaid != 'undefined' && typeof mermaid.mermaidAPI != 'undefined') {
@@ -391,6 +391,6 @@
       window.T_Copy_link_to_clipboard = 'Copy link to clipboard';
       window.T_Link_copied_to_clipboard = 'Copied link to clipboard!';
     </script>
-    <script src="/js/theme.js?1646135078"></script>
+    <script src="/js/theme.js?1646144222"></script>
   </body>
 </html>
