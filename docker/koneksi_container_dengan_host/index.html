@@ -7,25 +7,25 @@
     <meta name="generator" content="Relearn 3.0.4&#43;tip">
     <meta name="description" content="">
     <title>Koneksi container dengan host - Journal</title>
-    <link href="/css/nucleus.css?1646128380" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1646128380" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1646128380" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1646128380" rel="stylesheet">
-    <link href="/css/auto-complete.css?1646128380" rel="stylesheet">
-    <link href="/css/theme.css?1646128380" rel="stylesheet">
-    <link id="variant-style" href="/css/theme-light.css?1646128380" rel="stylesheet">
-    <link href="/css/variant.css?1646128380" rel="stylesheet">
-    <link href="/css/theme-relearn-light.css?1646128380" rel="stylesheet" media="print">
-    <link href="/css/print.css?1646128380" rel="stylesheet" media="print">
-    <link href="/css/foo.css?1646128380" rel="stylesheet">
-    <link href="/css/bar.css?1646128380" rel="stylesheet">
+    <link href="/css/nucleus.css?1646133548" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1646133548" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1646133548" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1646133548" rel="stylesheet">
+    <link href="/css/auto-complete.css?1646133548" rel="stylesheet">
+    <link href="/css/theme.css?1646133548" rel="stylesheet">
+    <link id="variant-style" href="/css/theme-light.css?1646133548" rel="stylesheet">
+    <link href="/css/variant.css?1646133548" rel="stylesheet">
+    <link href="/css/theme-relearn-light.css?1646133548" rel="stylesheet" media="print">
+    <link href="/css/print.css?1646133548" rel="stylesheet" media="print">
+    <link href="/css/foo.css?1646133548" rel="stylesheet">
+    <link href="/css/bar.css?1646133548" rel="stylesheet">
     <style>
     </style>
-    <script src="/js/variant.js?1646128380"></script>
+    <script src="/js/variant.js?1646133548"></script>
     <script>
       variants.init( [ "light" ] );
     </script>
-    <script src="/js/jquery.min.js?1646128380"></script>
+    <script src="/js/jquery.min.js?1646133548"></script>
   </head>
   <body class="default-animation" data-url="/docker/koneksi_container_dengan_host/">
     <div id="body" class="default-animation">
@@ -46,17 +46,17 @@
               <div class="wrapper">
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#study-case-">Study Case :</a></li>
+    <li><a href="#kasus-">Kasus :</a></li>
     <li><a href="#sistem">Sistem</a></li>
     <li><a href="#perhatian-">Perhatian :</a></li>
     <li><a href="#langkah-langkah">Langkah-langkah</a>
       <ul>
-        <li><a href="#1-dari-sisi-konfigurasi-mysql">1. Dari sisi Konfigurasi MySql</a></li>
-        <li><a href="#2-dari-sisi-konfigurasi-docker">2. Dari sisi konfigurasi Docker</a></li>
+        <li><a href="#1-konfigurasi-mysql">1. Konfigurasi MySql</a></li>
+        <li><a href="#2-konfigurasi-docker-compose">2. konfigurasi Docker Compose</a></li>
       </ul>
     </li>
     <li><a href="#secure-mysql">Secure Mysql</a></li>
-    <li><a href="#problem-solving-">Problem Solving :</a></li>
+    <li><a href="#troubleshoot-">Troubleshoot :</a></li>
   </ul>
 </nav>
               </div>
@@ -73,7 +73,7 @@
           </div>
           <h1>Koneksi container dengan host</h1>
 
-<h2 id="study-case-">Study Case :</h2>
+<h2 id="kasus-">Kasus :</h2>
 <p>Disini kita akan mengkoneksikan docker container dengan mysql yang terinstall di host mesin (luar container).</p>
 <h2 id="sistem">Sistem</h2>
 <ul>
@@ -89,17 +89,18 @@
 <li>pastikan port 3306 allow, ufw allow 3306</li>
 </ol>
 <h2 id="langkah-langkah">Langkah-langkah</h2>
-<h3 id="1-dari-sisi-konfigurasi-mysql">1. Dari sisi Konfigurasi MySql</h3>
+<h3 id="1-konfigurasi-mysql">1. Konfigurasi MySql</h3>
 <ul>
 <li>
-<p>pastikan bind-address terbuka ubah ke <code>0.0.0.0</code>, <code>nano /etc/mysql/mysql.conf.d/mysqld.cnf</code></p>
+<p>pastikan bind-address terbuka ubah ke <code>0.0.0.0</code>, file <code>/etc/mysql/mysql.conf.d/mysqld.cnf</code></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-vim" data-lang="vim"><span style="display:flex;"><span>[<span style="color:#a6e22e">mysqld</span>]<span style="color:#960050;background-color:#1e0010">
 </span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">pid</span>-<span style="color:#a6e22e">file</span>        = <span style="color:#e6db74">/var/</span><span style="color:#a6e22e">run</span><span style="color:#e6db74">/mysqld/</span><span style="color:#a6e22e">mysqld</span>.<span style="color:#a6e22e">pid</span><span style="color:#960050;background-color:#1e0010">
 </span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">socket</span>          = <span style="color:#e6db74">/var/</span><span style="color:#a6e22e">run</span><span style="color:#e6db74">/mysqld/</span><span style="color:#a6e22e">mysqld</span>.<span style="color:#a6e22e">sock</span><span style="color:#960050;background-color:#1e0010">
 </span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">datadir</span>         = <span style="color:#e6db74">/var/</span><span style="color:#a6e22e">lib</span>/<span style="color:#a6e22e">mysql</span><span style="color:#960050;background-color:#1e0010">
 </span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">log</span>-<span style="color:#a6e22e">error</span>       = <span style="color:#e6db74">/var/</span><span style="color:#a6e22e">log</span><span style="color:#e6db74">/mysql/</span><span style="color:#a6e22e">error</span>.<span style="color:#a6e22e">log</span><span style="color:#960050;background-color:#1e0010">
 </span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">bind</span>-<span style="color:#a6e22e">address</span>    = <span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">0</span> #&lt;-- <span style="color:#a6e22e">bagian</span> <span style="color:#a6e22e">ini</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span># <span style="color:#a6e22e">bagian</span> <span style="color:#a6e22e">ini</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">bind</span>-<span style="color:#a6e22e">address</span>    = <span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">0</span> <span style="color:#960050;background-color:#1e0010">
 </span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
 </span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#a6e22e">symbolic</span>-<span style="color:#a6e22e">links</span>=<span style="color:#ae81ff">0</span><span style="color:#960050;background-color:#1e0010">
 </span></span></span></code></pre></div><p><em>note: jika ingin ubah port, tambahkan variabel port di file /etc/mysql/my.cnf</em></p>
@@ -172,46 +173,48 @@
 </ul>
 </li>
 <li>
-<p>Sesuaikan policy requirement (lihat bagian resolusi)</p>
+<p>Sesuaikan policy requirement (lihat bagian Troubleshoot)</p>
 </li>
 </ul>
-<h3 id="2-dari-sisi-konfigurasi-docker">2. Dari sisi konfigurasi Docker</h3>
+<h3 id="2-konfigurasi-docker-compose">2. konfigurasi Docker Compose</h3>
 <ul>
 <li>pastikan docker-compose.yaml file sbb :
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-docker" data-lang="docker"><span style="display:flex;"><span>version: <span style="color:#e6db74">&#34;3.9&#34;</span><span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>services:<span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>simade:<span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    image: <span style="color:#e6db74">${</span>REPOSITORY<span style="color:#e6db74">}</span><span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    container_name: simade<span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    ports:<span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    - <span style="color:#e6db74">&#34;8080:80&#34;</span><span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    restart: on-failure<span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    volumes:<span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    - /home/serverdpmd/project/upload/:/var/www/app/application/upload/<span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    - /home/serverdpmd/project/.env:/var/www/app/.env<span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    extra_hosts:<span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    - <span style="color:#e6db74">&#34;host.docker.internal:host-gateway&#34;</span> <span style="color:#75715e">#&lt;--tambahkan bagian ini</span><span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#75715e"># atau gunakan perintah ini jika menjalankan manual &#39;--add-host=host.docker.internal:host-gateway&#39;</span><span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e">#tambahan untuk mendapatkan ip statik</span><span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>networks:<span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  network:<span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    ipv4_address: 172.31.0.2<span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>networks:<span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>default:<span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    name: simade_net<span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>network: <span style="color:#75715e">#will be prefixed with &#39;parent_dir_name_&#39; so for me, it will be &#39;mysql_network&#39;</span><span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    ipam:<span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>        config:<span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>            - subnet: 172.31.0.0/16<span style="color:#960050;background-color:#1e0010">
-</span></span></span></code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">version</span>: <span style="color:#e6db74">&#34;3.9&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">services</span>:
+</span></span><span style="display:flex;"><span><span style="color:#f92672">simade</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">${REPOSITORY}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container_name</span>: <span style="color:#ae81ff">simade</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">ports</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#e6db74">&#34;8080:80&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">restart</span>: <span style="color:#66d9ef">on</span>-<span style="color:#ae81ff">failure</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">volumes</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">/home/serverdpmd/project/upload/:/var/www/app/application/upload/</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">/home/serverdpmd/project/.env:/var/www/app/.env</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">extra_hosts</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># tambahkan bagian ini</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># atau gunakan perintah &#39;--add-host=host.docker.internal:host-gateway&#39; jika dijalankan manual</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#e6db74">&#34;host.docker.internal:host-gateway&#34;</span> 
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># konfigurasi network &amp; global network (paling bawah), untuk mendapatkan ip statik</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">networks</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">network</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">ipv4_address</span>: <span style="color:#ae81ff">172.31.0.2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">networks</span>:
+</span></span><span style="display:flex;"><span><span style="color:#f92672">default</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">name</span>: <span style="color:#ae81ff">simade_net</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#will be prefixed with &#39;parent_dir_name_&#39; so for me, it will be &#39;mysql_network&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">network</span>: 
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">ipam</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">config</span>:
+</span></span><span style="display:flex;"><span>            - <span style="color:#f92672">subnet</span>: <span style="color:#ae81ff">172.31.0.0</span><span style="color:#ae81ff">/16</span>
+</span></span></code></pre></div></li>
 </ul>
 <h2 id="secure-mysql">Secure Mysql</h2>
 <ol>
-<li>Ubah port <!-- raw HTML omitted --></li>
-<li>Jalankan <code>mysql_secure_installation</code>, pastikan user root tidak dapat diakses sembarangan</li>
+<li>Ubah mysql port</li>
+<li>Jalankan <code>mysql_secure_installation</code> dan pastikan user root tidak dapat diakses sembarangan</li>
 </ol>
-<h2 id="problem-solving-">Problem Solving :</h2>
+<h2 id="troubleshoot-">Troubleshoot :</h2>
 <ol>
 <li>
 <ul>
@@ -319,9 +322,9 @@
           <input data-search-input id="search-by" type="search" placeholder="Search...">
           <span data-search-clear=""><i class="fas fa-times"></i></span>
         </div>
-        <script src="/js/lunr.min.js?1646128380"></script>
-        <script src="/js/auto-complete.js?1646128380"></script>
-        <script src="/js/search.js?1646128380"></script>
+        <script src="/js/lunr.min.js?1646133548"></script>
+        <script src="/js/auto-complete.js?1646133548"></script>
+        <script src="/js/search.js?1646133548"></script>
       </div>
       <div id="content-wrapper" class="highlightable">
         <ul class="topics">
@@ -371,11 +374,11 @@
         </div>
       </div>
     </aside>
-    <script src="/js/clipboard.min.js?1646128380"></script>
-    <script src="/js/perfect-scrollbar.min.js?1646128380"></script>
-    <script src="/js/jquery.svg.pan.zoom.js?1646128380"></script>
-    <script src="/js/featherlight.min.js?1646128380"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1646128380"></script>
+    <script src="/js/clipboard.min.js?1646133548"></script>
+    <script src="/js/perfect-scrollbar.min.js?1646133548"></script>
+    <script src="/js/jquery.svg.pan.zoom.js?1646133548"></script>
+    <script src="/js/featherlight.min.js?1646133548"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1646133548"></script>
     <script src="https://unpkg.com/mermaid@8.8.0/dist/mermaid.min.js"></script>
     <script>
       if (typeof mermaid != 'undefined' && typeof mermaid.mermaidAPI != 'undefined') {
@@ -388,6 +391,6 @@
       window.T_Copy_link_to_clipboard = 'Copy link to clipboard';
       window.T_Link_copied_to_clipboard = 'Copied link to clipboard!';
     </script>
-    <script src="/js/theme.js?1646128380"></script>
+    <script src="/js/theme.js?1646133548"></script>
   </body>
 </html>
