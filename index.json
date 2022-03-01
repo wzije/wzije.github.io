@@ -13,7 +13,7 @@
       "docker",
       "connection"
     ],
-    "title": "Koneksi container dengan host",
+    "title": "Koneksi container dengan host (localhost)",
     "uri": "/docker/koneksi_container_dengan_host/"
   },
   {
