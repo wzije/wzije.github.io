@@ -1,18 +1,28 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>clean on Journal</title>
-    <link>http://example.org/tags/clean/</link>
-    <description>Recent content in clean on Journal</description>
+    <title>clean on Dev Journal</title>
+    <link>https://wzije.github.io/tags/clean/</link>
+    <description>Recent content in clean on Dev Journal</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 01 Mar 2022 15:10:38 +0700</lastBuildDate><atom:link href="http://example.org/tags/clean/index.xml" rel="self" type="application/rss+xml" />
+    <language>en</language>
+    <lastBuildDate>Tue, 01 Mar 2022 15:10:38 +0700</lastBuildDate><atom:link href="https://wzije.github.io/tags/clean/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Docker Clean Command</title>
-      <link>http://example.org/docker/docker-clean-command/</link>
+      <link>https://wzije.github.io/docker/docker_clean_command/</link>
       <pubDate>Tue, 01 Mar 2022 15:10:38 +0700</pubDate>
-      <guid>http://example.org/docker/docker-clean-command/</guid>
-      <description>Docker – How to cleanup (unused) resources Once in a while, you may need to cleanup resources (containers, volumes, images, networks) …
-delete volumes $ docker volume rm $(docker volume ls -qf dangling=true) $ docker volume ls -qf dangling=true | xargs -r docker volume rm  # delete networks $ docker network ls $ docker network ls | grep &amp;#34;bridge&amp;#34; $ docker network rm $(docker network ls | grep &amp;#34;bridge&amp;#34; | awk &amp;#39;/ / { print $1 }&amp;#39;) remove docker images $ docker images $ docker rmi $(docker images --filter &amp;#34;dangling=true&amp;#34; -q --no-trunc) $ docker images | grep &amp;#34;none&amp;#34; $ docker rmi $(docker images | grep &amp;#34;none&amp;#34; | awk &amp;#39;/ / { print $3 }&amp;#39;) remove docker containers $ docker ps $ docker ps -a $ docker rm $(docker ps -qa --no-trunc --filter &amp;#34;status=exited&amp;#34;) Resize disk space for docker vm $ docker-machine create --driver virtualbox --virtualbox-disk-size &amp;#34;40000&amp;#34; default Referensi:</description>
+      
+      <guid>https://wzije.github.io/docker/docker_clean_command/</guid>
+      <description>
+        
+          
+            Docker – How to cleanup (unused) resources Once in a while, you may need to cleanup resources (containers, volumes, images, networks) …
+delete volumes 1$ docker volume rm $(docker volume ls -qf dangling=true) 2$ docker volume ls -qf dangling=true | xargs -r docker volume rm 34# delete networks 5$ docker network ls 6$ docker network ls | grep &amp;#34;bridge&amp;#34; 7$ docker network rm $(docker network ls | grep &amp;#34;bridge&amp;#34; | awk &amp;#39;/ / { print $1 }&amp;#39;) remove docker images 1$ docker images 2$ docker rmi $(docker images --filter &amp;#34;dangling=true&amp;#34; -q --no-trunc) 3$ docker images | grep &amp;#34;none&amp;#34; 4$ docker rmi $(docker images | grep &amp;#34;none&amp;#34; | awk &amp;#39;/ / { print $3 }&amp;#39;) remove docker containers 1$ docker ps 2$ docker ps -a 3$ docker rm $(docker ps -qa --no-trunc --filter &amp;#34;status=exited&amp;#34;) Resize disk space for docker vm 1$ docker-machine create --driver virtualbox --virtualbox-disk-size &amp;#34;40000&amp;#34; default Referensi:
+          
+          
+        
+      </description>
     </item>
+    
   </channel>
 </rss>
