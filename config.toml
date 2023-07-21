@@ -1,0 +1,12 @@
+name = "Jehan Journal"
+baseURL = 'http://wzije.github.io/'
+title = 'Jehan Journal'
+theme = "hugo-clarity"
+landingPageURL = "/"
+landingPageName = "<i class='fas fa-home'></i> Home"
+
+canonifyURLs = false
+relativeURLs = false
+
+languageCode = "en"
+defaultContentLanguage = "en"

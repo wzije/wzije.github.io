@@ -1,0 +1,10 @@
+
+[en]
+title = "wzije"
+LanguageName = "English"
+weight = 1
+
+[id]
+title = "Jurnal"           # just for the sake of showing this is possible
+LanguageName = "Indonesia"
+weight = 2

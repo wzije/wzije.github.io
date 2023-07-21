@@ -1,0 +1,13 @@
+baseurl = "https://wzije.github.io/" # Include trailing slash
+paginate = 10
+theme = "hugo-clarity"
+disqusShortname = ""
+DefaultContentLanguage = "en"
+
+[taxonomies]
+category = "categories"
+tag = "tags"
+series = "series"
+
+[outputs]
+home = ["HTML", "RSS", "JSON"]
