@@ -1,6 +1,6 @@
-name = "Jehan Journal"
+name = "Journal"
 baseURL = 'http://wzije.github.io/'
-title = 'Jehan Journal'
+title = 'Journal'
 theme = "hugo-clarity"
 landingPageURL = "/"
 landingPageName = "<i class='fas fa-home'></i> Home"
